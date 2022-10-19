@@ -1,8 +1,0 @@
-.gradle/
-app/build/
-app/.cxx/
-
-# EditLike Playstore Signature Key
-app/EditLike.jks
-app/.cxx/
-gradle/
