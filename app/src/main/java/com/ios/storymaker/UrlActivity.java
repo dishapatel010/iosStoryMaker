@@ -26,7 +26,7 @@ public class UrlActivity extends AppCompatActivity {
     binding = UrlBinding.inflate(getLayoutInflater());
     // set content view to binding's root
     setContentView(binding.getRoot());
-    onOpenedByReceivingUrlFromOutside();
+    onReceivedUrlFromOutside();
     binding.button1.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -40,7 +40,6 @@ public class UrlActivity extends AppCompatActivity {
             }
           }
         });
-
     binding.edittext1.setOnEditorActionListener(
         new TextView.OnEditorActionListener() {
           @Override
@@ -124,7 +123,7 @@ public class UrlActivity extends AppCompatActivity {
     startActivity(PermissionPage);
   }
 
-  public void onOpenedByReceivingUrlFromOutside() {
+  public void onReceivedUrlFromOutside() {
     Intent intent = getIntent();
     String receivedText = intent.getStringExtra(Intent.EXTRA_TEXT);
     if (receivedText != null) {
