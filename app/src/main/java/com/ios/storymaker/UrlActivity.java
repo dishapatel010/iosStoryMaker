@@ -69,7 +69,7 @@ public class UrlActivity extends AppCompatActivity {
                       + "/"
                       + DownloadUtil.filename);
               MainPage.putExtra("username", DownloadUtil.username);
-              MainPage.setClass(context, MainActivity.class);
+              MainPage.setClass(context, VideoActivity.class);
               MainPage.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
               context.startActivity(MainPage);
             } else {

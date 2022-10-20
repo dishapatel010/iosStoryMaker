@@ -6,19 +6,19 @@ import android.net.Uri;
 import android.view.Window;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.*;
-import com.ios.storymaker.databinding.MainBinding;
 import android.media.MediaPlayer;
 import android.view.WindowManager;
+import com.ios.storymaker.databinding.VideoBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class VideoActivity extends AppCompatActivity {
 
-  private MainBinding binding;
+  private VideoBinding binding;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     // Inflate and get instance of binding
-    binding = MainBinding.inflate(getLayoutInflater());
+    binding = VideoBinding.inflate(getLayoutInflater());
     // set content view to binding's root
     setContentView(binding.getRoot());
 
