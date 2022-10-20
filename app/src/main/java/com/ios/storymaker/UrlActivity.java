@@ -1,12 +1,10 @@
 package com.ios.storymaker;
 
-import android.Manifest;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.Context;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -15,7 +13,6 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import android.view.View;
 import com.ios.storymaker.databinding.UrlBinding;
 
@@ -29,15 +26,13 @@ public class UrlActivity extends AppCompatActivity {
     binding = UrlBinding.inflate(getLayoutInflater());
     // set content view to binding's root
     setContentView(binding.getRoot());
-
-    HandleShare();
-
+    onOpenedByReceivingUrlFromOutside();
     binding.button1.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
             if (binding.edittext1.getText().toString().trim().length() > 0) {
-              if (isStoragePermissionGranted()) {
+              if (AppUtil.isPermissionGranted(UrlActivity.this)) {
                 onStorageAlreadyGranted();
               } else {
                 onStorageDenied();
@@ -65,7 +60,6 @@ public class UrlActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
           long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
           if (DownloadUtil.downloadId == id) {
-
             binding.button1.setText("NEXT");
             if (DownloadUtil.filename.contains(".mp4")) {
               final Intent MainPage = new Intent();
@@ -95,13 +89,6 @@ public class UrlActivity extends AppCompatActivity {
           }
         }
       };
-
-  public boolean isStoragePermissionGranted() {
-    return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-            == PackageManager.PERMISSION_GRANTED
-        && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            == PackageManager.PERMISSION_GRANTED;
-  }
 
   protected void onStorageAlreadyGranted() {
     AppUtil.hideKeyboard(UrlActivity.this);
@@ -137,12 +124,12 @@ public class UrlActivity extends AppCompatActivity {
     startActivity(PermissionPage);
   }
 
-  public void HandleShare() {
+  public void onOpenedByReceivingUrlFromOutside() {
     Intent intent = getIntent();
     String receivedText = intent.getStringExtra(Intent.EXTRA_TEXT);
     if (receivedText != null) {
       binding.edittext1.setText(receivedText);
-      if (isStoragePermissionGranted()) {
+      if (AppUtil.isPermissionGranted(UrlActivity.this)) {
         onStorageAlreadyGranted();
       } else {
         onStorageDenied();
