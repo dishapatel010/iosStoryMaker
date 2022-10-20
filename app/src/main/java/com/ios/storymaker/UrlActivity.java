@@ -16,17 +16,17 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import com.ios.storymaker.databinding.PickBinding;
 import android.view.View;
+import com.ios.storymaker.databinding.UrlBinding;
 
-public class PickActivity extends AppCompatActivity {
+public class UrlActivity extends AppCompatActivity {
 
-  private PickBinding binding;
+  private UrlBinding binding;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    binding = PickBinding.inflate(getLayoutInflater());
+    binding = UrlBinding.inflate(getLayoutInflater());
     // set content view to binding's root
     setContentView(binding.getRoot());
 
@@ -50,8 +50,8 @@ public class PickActivity extends AppCompatActivity {
         new TextView.OnEditorActionListener() {
           @Override
           public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-              if (actionId == EditorInfo.IME_ACTION_DONE) {
-                  binding.button1.performClick();
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+              binding.button1.performClick();
               return true;
             }
             return false;
@@ -104,8 +104,7 @@ public class PickActivity extends AppCompatActivity {
   }
 
   protected void onStorageAlreadyGranted() {
-    AppUtil.hideKeyboard(PickActivity.this);
-    // AppUtil.hideKeyboard(getApplicationContext());
+    AppUtil.hideKeyboard(UrlActivity.this);
     java.util.concurrent.ExecutorService executor =
         java.util.concurrent.Executors.newSingleThreadExecutor();
     final Handler handler = new Handler(Looper.getMainLooper());
