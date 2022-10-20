@@ -16,9 +16,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import com.ios.storymaker.PickActivity;
 import com.ios.storymaker.databinding.PickBinding;
-import com.itsaky.androidide.logsender.LogSender;
 import android.view.View;
 
 public class PickActivity extends AppCompatActivity {
@@ -27,7 +25,6 @@ public class PickActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    LogSender.startLogging(this);
     super.onCreate(savedInstanceState);
     binding = PickBinding.inflate(getLayoutInflater());
     // set content view to binding's root

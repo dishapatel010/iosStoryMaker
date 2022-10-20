@@ -7,7 +7,6 @@ import android.view.Window;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.*;
 import com.ios.storymaker.databinding.MainBinding;
-import com.itsaky.androidide.logsender.LogSender;
 import android.media.MediaPlayer;
 import android.view.WindowManager;
 
@@ -17,8 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    // Remove this line if you don't want AndroidIDE to show this app's logs
-    LogSender.startLogging(this);
     super.onCreate(savedInstanceState);
     // Inflate and get instance of binding
     binding = MainBinding.inflate(getLayoutInflater());
