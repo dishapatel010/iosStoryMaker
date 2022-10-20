@@ -1,0 +1,111 @@
+plugins {
+    id 'com.android.application'
+    id 'io.michaelrocks.paranoid'
+    id 'top.niunaijun.blackobfuscator'
+}
+
+
+android {
+    compileSdk 32
+    ndkVersion "24.0.8215888"
+    
+    defaultConfig {
+        applicationId rootProject.ext.appId
+        minSdk rootProject.ext.minSdk
+        targetSdk rootProject.ext.targetSdk
+        versionCode 8
+        versionName "1.7"
+        ndk {
+            abiFilters 'armeabi-v7a','arm64-v8a'
+        }
+        resConfigs "en"
+        multiDexEnabled true
+    }
+    
+    signingConfigs {
+         release {
+             storeFile file("debug.jks")
+             keyAlias 'EditLike'
+             keyPassword 'd223VHWnWixBb52'
+             storePassword 'd223VHWnWixBb52'
+             v1SigningEnabled true
+             v2SigningEnabled true
+             enableV3Signing = true
+         } 
+         debug {
+             storeFile file("debug.jks")
+             keyAlias 'EditLike'
+             keyPassword 'd223VHWnWixBb52'
+             storePassword 'd223VHWnWixBb52'
+             v1SigningEnabled true
+             v2SigningEnabled true
+             enableV3Signing = true
+         } 
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            ndk {
+                 debugSymbolLevel 'SYMBOL_TABLE'
+                }
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+    
+    compileOptions {
+		sourceCompatibility JavaVersion.VERSION_11
+		targetCompatibility JavaVersion.VERSION_11
+	}
+    
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+            version '3.18.1+'
+        }
+    }
+	
+	buildFeatures {
+        viewBinding true
+    }
+    
+    lint {
+        abortOnError false
+        disable 'VectorPath', 'NestedWeights', 'ContentDescription', 'SmallSp'
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.android.material:material:1.8.0-alpha01'
+    implementation 'com.android.volley:volley:1.1.0'
+}
+
+configurations.implementation {
+    exclude group: 'androidx.viewpager', module: 'viewpager'
+    exclude group: 'androidx.viewpager2', module: 'viewpager2'
+}
+
+paranoid {
+  enabled false
+  cacheable false
+  includeSubprojects false
+  obfuscationSeed null
+}
+
+BlackObfuscator {
+    enabled false
+    depth 1
+    obfClass = ["com.editlike.app"]
+}
