@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.*;
 import android.media.MediaPlayer;
 import android.view.WindowManager;
+import com.ios.storymaker.AppUtil;
+import com.ios.storymaker.VideoActivity;
 import com.ios.storymaker.databinding.VideoBinding;
 
 public class VideoActivity extends AppCompatActivity {
@@ -21,20 +23,7 @@ public class VideoActivity extends AppCompatActivity {
     binding = VideoBinding.inflate(getLayoutInflater());
     // set content view to binding's root
     setContentView(binding.getRoot());
-
-    // registerReceiver(onDownloadComplete,new
-    // IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-
-    Window window = this.getWindow();
-    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-    window.setStatusBarColor(Color.parseColor("#FFC107"));
-    window.setNavigationBarColor(Color.parseColor("#424242"));
-    GradientDrawable gd001 =
-        new GradientDrawable(
-            GradientDrawable.Orientation.TOP_BOTTOM, new int[] {0xFFFFC107, 0xFF424242});
-    binding.linear1.setBackgroundDrawable(gd001);
-
+    AppUtil.GradientBackgroundColor(VideoActivity.this, binding.linear1, 0xFFFFC107, 0xFF424242);
     binding.textview2.setText(getIntent().getStringExtra("username"));
     binding.videoview1.setMediaController(null);
     binding.videoview1.setVideoURI(Uri.parse(getIntent().getStringExtra("videopath")));
