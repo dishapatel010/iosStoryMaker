@@ -1,5 +1,6 @@
 package com.ios.storymaker;
 
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import com.ios.storymaker.databinding.UrlBinding;
@@ -120,7 +122,7 @@ public class UrlActivity extends AppCompatActivity {
     final Intent PermissionPage = new Intent();
     PermissionPage.setClass(getApplicationContext(), PermissionsActivity.class);
     PermissionPage.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-    startActivity(PermissionPage);
+    startActivityForResult(PermissionPage, 1);
   }
 
   public void onReceivedUrlFromOutside() {
@@ -132,6 +134,16 @@ public class UrlActivity extends AppCompatActivity {
         onStorageAlreadyGranted();
       } else {
         onStorageDenied();
+      }
+    }
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == 1) {
+      if (resultCode == Activity.RESULT_OK) {
+          binding.button1.performClick();
       }
     }
   }
