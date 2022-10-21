@@ -28,7 +28,7 @@ public class VideoActivity extends AppCompatActivity {
     binding.videoview1.setMediaController(null);
     binding.videoview1.setVideoURI(Uri.parse(getIntent().getStringExtra("videopath")));
     binding.videoview1.start();
-
+    AppUtil.CountDown(binding.textview1, (double) (15));
     binding.videoview1.setOnCompletionListener(
         new MediaPlayer.OnCompletionListener() {
           @Override

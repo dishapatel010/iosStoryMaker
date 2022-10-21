@@ -7,16 +7,24 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class AppUtil {
+
+  public static TimerTask countdown;
+  public static double currentduration = 0;
 
   public static void hideKeyboard(@NonNull Activity activity) {
     View view = activity.getCurrentFocus();
@@ -48,5 +56,44 @@ public class AppUtil {
             GradientDrawable.Orientation.TOP_BOTTOM,
             new int[] {statusbarcolor, navigationbarcolor});
     linear.setBackgroundDrawable(gd001);
+  }
+
+  public static void CountDown(TextView textview, Double duration) {
+    Timer _timer = new Timer();
+    currentduration = duration;
+    countdown =
+        new TimerTask() {
+          @Override
+          public void run() {
+            new Handler(Looper.getMainLooper())
+                .post(
+                    new Runnable() {
+                      @Override
+                      public void run() {
+                        if (currentduration == 0) {
+                          currentduration = 15;
+                          if (currentduration < 11) {
+                            currentduration--;
+                            textview.setText(
+                                "0:0".concat(String.valueOf((long) (currentduration))));
+                          } else {
+                            currentduration--;
+                            textview.setText("0:".concat(String.valueOf((long) (currentduration))));
+                          }
+                        } else {
+                          if (currentduration < 11) {
+                            currentduration--;
+                            textview.setText(
+                                "0:0".concat(String.valueOf((long) (currentduration))));
+                          } else {
+                            currentduration--;
+                            textview.setText("0:".concat(String.valueOf((long) (currentduration))));
+                          }
+                        }
+                      }
+                    });
+          }
+        };
+    _timer.scheduleAtFixedRate(countdown, (int) (0), (int) (1000));
   }
 }
