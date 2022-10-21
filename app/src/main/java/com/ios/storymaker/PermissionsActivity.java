@@ -13,7 +13,6 @@ import android.view.View.*;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.annotation.NonNull;
 import com.ios.storymaker.databinding.PermissionsBinding;
 
@@ -40,7 +39,7 @@ public class PermissionsActivity extends AppCompatActivity {
   @Override
   public void onResume() {
     super.onResume();
-    if (isStoragePermissionGranted()) {
+    if (AppUtil.isPermissionGranted(PermissionsActivity.this)) {
       onStorageGranted();
     }
   }
@@ -77,12 +76,5 @@ public class PermissionsActivity extends AppCompatActivity {
         onStorageGranted();
       else onStorageDenied();
     }
-  }
-
-  protected boolean isStoragePermissionGranted() {
-    return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-            == PackageManager.PERMISSION_GRANTED
-        && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            == PackageManager.PERMISSION_GRANTED;
   }
 }

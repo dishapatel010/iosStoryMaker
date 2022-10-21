@@ -10,12 +10,15 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
+import com.ios.storymaker.AppUtil;
 import com.ios.storymaker.databinding.UrlBinding;
 
 public class UrlActivity extends AppCompatActivity {
@@ -52,6 +55,43 @@ public class UrlActivity extends AppCompatActivity {
             }
             return false;
           }
+        });
+
+    binding.cutpaste.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            if (binding.imageview1.getTag() != null) {
+              if (binding.imageview1.getTag().toString().equals("cut")) {
+                binding.edittext1.setText("");
+              } else {
+                AppUtil.getClipBoard(getApplicationContext(), binding.edittext1);
+              }
+            } else {
+              AppUtil.getClipBoard(getApplicationContext(), binding.edittext1);
+            }
+          }
+        });
+
+    binding.edittext1.addTextChangedListener(
+        new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {}
+
+          @Override
+          public void onTextChanged(CharSequence param1, int arg1, int arg2, int arg3) {
+            final String charSeq = param1.toString();
+            if (charSeq.trim().length() > 0) {
+              binding.imageview1.setImageResource(R.drawable.cut);
+              binding.imageview1.setTag("cut");
+            } else {
+              binding.imageview1.setImageResource(R.drawable.paste);
+              binding.imageview1.setTag("paste");
+            }
+          }
+
+          @Override
+          public void afterTextChanged(Editable arg0) {}
         });
   }
 
@@ -143,7 +183,7 @@ public class UrlActivity extends AppCompatActivity {
     super.onActivityResult(requestCode, resultCode, data);
     if (requestCode == 1) {
       if (resultCode == Activity.RESULT_OK) {
-          binding.button1.performClick();
+        binding.button1.performClick();
       }
     }
   }

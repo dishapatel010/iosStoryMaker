@@ -2,10 +2,9 @@ package com.ios.storymaker;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -56,6 +55,15 @@ public class AppUtil {
             GradientDrawable.Orientation.TOP_BOTTOM,
             new int[] {statusbarcolor, navigationbarcolor});
     linear.setBackgroundDrawable(gd001);
+  }
+
+  public static void getClipBoard(Context context, EditText edittext) {
+    android.content.ClipboardManager clipboard =
+        (android.content.ClipboardManager) context.getSystemService(context.CLIPBOARD_SERVICE);
+    ClipData clipData = clipboard.getPrimaryClip();
+    if (clipData != null) {
+      edittext.setText(clipData.getItemAt(0).getText().toString());
+    }
   }
 
   public static void CountDown(TextView textview, Double duration) {
