@@ -102,6 +102,7 @@ public class UrlActivity extends AppCompatActivity {
           long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
           if (DownloadUtil.downloadId == id) {
             binding.button1.setText("NEXT");
+            binding.button1.setEnabled(true);
             if (DownloadUtil.filename.contains(".mp4")) {
               final Intent MainPage = new Intent();
               MainPage.putExtra(
@@ -145,6 +146,7 @@ public class UrlActivity extends AppCompatActivity {
                   @Override
                   public void run() {
                     binding.button1.setText("GETTING..");
+                    binding.button1.setEnabled(false);
                   }
                 });
             DownloadUtil.downloadContent(

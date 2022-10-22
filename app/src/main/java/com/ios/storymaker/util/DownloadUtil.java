@@ -89,6 +89,7 @@ public class DownloadUtil {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                   button.setText("NEXT");
+                  button.setEnabled(true);
                   if (error instanceof NoConnectionError
                       || error instanceof NetworkError
                       || error instanceof AuthFailureError) {
