@@ -4,9 +4,7 @@ import android.net.Uri;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.*;
 import android.media.MediaPlayer;
-import com.ios.storymaker.AppUtil;
 import com.ios.storymaker.databinding.VideoBinding;
-import com.itsaky.androidide.logsender.LogSender;
 
 public class VideoActivity extends AppCompatActivity {
 
@@ -16,7 +14,6 @@ public class VideoActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    LogSender.startLogging(this);
     // Inflate and get instance of binding
     binding = VideoBinding.inflate(getLayoutInflater());
     // set content view to binding's root
