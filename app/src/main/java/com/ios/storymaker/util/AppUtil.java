@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import com.google.android.material.snackbar.Snackbar;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -68,6 +69,18 @@ public class AppUtil {
     }
   }
 
+  public static void showSnackbar(LinearLayout linear, String message) {
+    Snackbar snackbar = Snackbar.make(linear, message, Snackbar.LENGTH_LONG);
+    snackbar.setAction(
+        "Retry",
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {}
+        });
+    snackbar.setDuration(3000);
+    snackbar.show();
+  }
+
   public static void setVideoLeftTime(VideoView videoview, TextView textview) {
     countdown =
         new TimerTask() {
@@ -88,7 +101,8 @@ public class AppUtil {
                                         TimeUnit.MILLISECONDS.toHours(leftvideodurationInMillis)),
                                 TimeUnit.MILLISECONDS.toSeconds(leftvideodurationInMillis)
                                     - TimeUnit.MINUTES.toSeconds(
-                                        TimeUnit.MILLISECONDS.toMinutes(leftvideodurationInMillis)));
+                                        TimeUnit.MILLISECONDS.toMinutes(
+                                            leftvideodurationInMillis)));
                         textview.setText(leftvideodurationInTimeFormat);
                       }
                     });

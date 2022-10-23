@@ -17,7 +17,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
-import com.ios.storymaker.AppUtil;
 import com.ios.storymaker.databinding.UrlBinding;
 
 public class UrlActivity extends AppCompatActivity {
@@ -98,34 +97,44 @@ public class UrlActivity extends AppCompatActivity {
       new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-          long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-          if (DownloadUtil.downloadId == id) {
-            binding.button1.setText("NEXT");
-            binding.button1.setEnabled(true);
-            if (DownloadUtil.filename.contains(".mp4")) {
-              final Intent MainPage = new Intent();
-              MainPage.putExtra(
-                  "videopath",
-                  "storage/emulated/0/"
-                      + Environment.DIRECTORY_DOWNLOADS
-                      + "/"
-                      + DownloadUtil.filename);
-              MainPage.putExtra("username", DownloadUtil.username);
-              MainPage.setClass(context, VideoActivity.class);
-              MainPage.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-              context.startActivity(MainPage);
+          final String id = intent.getAction();
+          if (id.equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
+            if (FileUtil.isExistFile(
+                "storage/emulated/0/"
+                    + Environment.DIRECTORY_DOWNLOADS
+                    + "/"
+                    + DownloadUtil.filename)) {
+              binding.button1.setText("NEXT");
+              binding.button1.setEnabled(true);
+              if (DownloadUtil.filename.contains(".mp4")) {
+                final Intent MainPage = new Intent();
+                MainPage.putExtra(
+                    "videopath",
+                    "storage/emulated/0/"
+                        + Environment.DIRECTORY_DOWNLOADS
+                        + "/"
+                        + DownloadUtil.filename);
+                MainPage.putExtra("username", DownloadUtil.username);
+                MainPage.setClass(context, VideoActivity.class);
+                MainPage.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                context.startActivity(MainPage);
+              } else {
+                final Intent ImagePage = new Intent();
+                ImagePage.putExtra(
+                    "imagepath",
+                    "storage/emulated/0/"
+                        + Environment.DIRECTORY_DOWNLOADS
+                        + "/"
+                        + DownloadUtil.filename);
+                ImagePage.putExtra("username", DownloadUtil.username);
+                ImagePage.setClass(context, ImageActivity.class);
+                ImagePage.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                context.startActivity(ImagePage);
+              }
             } else {
-              final Intent ImagePage = new Intent();
-              ImagePage.putExtra(
-                  "imagepath",
-                  "storage/emulated/0/"
-                      + Environment.DIRECTORY_DOWNLOADS
-                      + "/"
-                      + DownloadUtil.filename);
-              ImagePage.putExtra("username", DownloadUtil.username);
-              ImagePage.setClass(context, ImageActivity.class);
-              ImagePage.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-              context.startActivity(ImagePage);
+              binding.button1.setText("NEXT");
+              binding.button1.setEnabled(true);
+              AppUtil.showSnackbar(binding.linear1, "Failed");
             }
           }
         }

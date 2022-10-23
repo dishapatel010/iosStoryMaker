@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import android.text.TextUtils;
 import android.util.Log;
 import com.google.android.material.snackbar.Snackbar;
+import com.ios.storymaker.AppUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -93,26 +94,9 @@ public class DownloadUtil {
                   if (error instanceof NoConnectionError
                       || error instanceof NetworkError
                       || error instanceof AuthFailureError) {
-                    Snackbar snackbar = Snackbar.make(linear, "No Internet", Snackbar.LENGTH_LONG);
-                    snackbar.setAction(
-                        "Retry",
-                        new View.OnClickListener() {
-                          @Override
-                          public void onClick(View v) {}
-                        });
-                    snackbar.setDuration(3000);
-                    snackbar.show();
+                    AppUtil.showSnackbar(linear, "No Internet");
                   } else {
-                    Snackbar snackbar =
-                        Snackbar.make(linear, error.toString(), Snackbar.LENGTH_LONG);
-                    snackbar.setAction(
-                        "Retry",
-                        new View.OnClickListener() {
-                          @Override
-                          public void onClick(View v) {}
-                        });
-                    snackbar.setDuration(3000);
-                    snackbar.show();
+                    AppUtil.showSnackbar(linear, error.toString());
                   }
                 }
               });
