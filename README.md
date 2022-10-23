@@ -1,14 +1,12 @@
 
 <div align='center'>
 
-<h1> iosStoryMaker<br>
-ios instagram story ui in android
-</h1>
+<h1> iosStoryMaker for Instagram</h1>
 
 </div>
 <p align='center'>
 Make ios like instagram stories in android <br>
-easily, just with a link.
+easily with one click. Still Under Development.
 </p>
 
 <div align='center'>
