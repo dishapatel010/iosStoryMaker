@@ -26,10 +26,14 @@ public class UrlActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    // layout inflate in binding
     binding = UrlBinding.inflate(getLayoutInflater());
     // set content view to binding's root
     setContentView(binding.getRoot());
+    // when opened iosStoryMaker app from instagram's share option
     onReceivedUrlFromOutside();
+    
+    // next button on clicked listener
     binding.button1.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -43,18 +47,23 @@ public class UrlActivity extends AppCompatActivity {
             }
           }
         });
+
+    // edittext on editor action listener
     binding.edittext1.setOnEditorActionListener(
         new TextView.OnEditorActionListener() {
           @Override
           public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+            // keyboard's done button on clicked
             if (actionId == EditorInfo.IME_ACTION_DONE) {
+              // click next button automattically
               binding.button1.performClick();
               return true;
             }
             return false;
           }
         });
-
+        
+    // cutpaste button on clicker listener    
     binding.cutpaste.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -70,7 +79,8 @@ public class UrlActivity extends AppCompatActivity {
             }
           }
         });
-
+        
+    // edittext on changed listener    
     binding.edittext1.addTextChangedListener(
         new TextWatcher() {
           @Override
@@ -92,7 +102,8 @@ public class UrlActivity extends AppCompatActivity {
           public void afterTextChanged(Editable arg0) {}
         });
   }
-
+  
+  // On DownloadComplete Broadcast Receiver
   protected BroadcastReceiver onDownloadComplete =
       new BroadcastReceiver() {
         @Override
