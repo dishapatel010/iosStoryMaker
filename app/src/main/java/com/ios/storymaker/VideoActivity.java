@@ -1,24 +1,22 @@
 package com.ios.storymaker;
 
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
-import android.view.Window;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.*;
 import android.media.MediaPlayer;
-import android.view.WindowManager;
 import com.ios.storymaker.AppUtil;
-import com.ios.storymaker.VideoActivity;
 import com.ios.storymaker.databinding.VideoBinding;
+import com.itsaky.androidide.logsender.LogSender;
 
 public class VideoActivity extends AppCompatActivity {
 
   private VideoBinding binding;
+  private long lefttimetocompletevideo = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    LogSender.startLogging(this);
     // Inflate and get instance of binding
     binding = VideoBinding.inflate(getLayoutInflater());
     // set content view to binding's root
@@ -28,12 +26,18 @@ public class VideoActivity extends AppCompatActivity {
     binding.videoview1.setMediaController(null);
     binding.videoview1.setVideoURI(Uri.parse(getIntent().getStringExtra("videopath")));
     binding.videoview1.start();
-    AppUtil.CountDown(binding.textview1, (double) (15));
     binding.videoview1.setOnCompletionListener(
         new MediaPlayer.OnCompletionListener() {
           @Override
           public void onCompletion(MediaPlayer mediaPlayer) {
             binding.videoview1.start();
+          }
+        });
+    binding.videoview1.setOnPreparedListener(
+        new MediaPlayer.OnPreparedListener() {
+          @Override
+          public void onPrepared(MediaPlayer mediaplayer) {
+            AppUtil.setVideoLeftTime(binding.videoview1, binding.textview1);
           }
         });
   }

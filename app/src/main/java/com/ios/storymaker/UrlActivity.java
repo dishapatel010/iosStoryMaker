@@ -15,7 +15,6 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import com.ios.storymaker.AppUtil;
@@ -172,6 +171,8 @@ public class UrlActivity extends AppCompatActivity {
     String receivedText = intent.getStringExtra(Intent.EXTRA_TEXT);
     if (receivedText != null) {
       binding.edittext1.setText(receivedText);
+      binding.imageview1.setImageResource(R.drawable.cut);
+      binding.imageview1.setTag("cut");
       if (AppUtil.isPermissionGranted(UrlActivity.this)) {
         onStorageAlreadyGranted();
       } else {

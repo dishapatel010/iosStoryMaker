@@ -15,15 +15,17 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class AppUtil {
 
-  public static TimerTask countdown;
-  public static double currentduration = 0;
+  private static Timer timer = new Timer();
+  private static TimerTask countdown;
 
   public static void hideKeyboard(@NonNull Activity activity) {
     View view = activity.getCurrentFocus();
@@ -66,9 +68,7 @@ public class AppUtil {
     }
   }
 
-  public static void CountDown(TextView textview, Double duration) {
-    Timer _timer = new Timer();
-    currentduration = duration;
+  public static void setVideoLeftTime(VideoView videoview, TextView textview) {
     countdown =
         new TimerTask() {
           @Override
@@ -78,30 +78,22 @@ public class AppUtil {
                     new Runnable() {
                       @Override
                       public void run() {
-                        if (currentduration == 0) {
-                          currentduration = 15;
-                          if (currentduration < 11) {
-                            currentduration--;
-                            textview.setText(
-                                "0:0".concat(String.valueOf((long) (currentduration))));
-                          } else {
-                            currentduration--;
-                            textview.setText("0:".concat(String.valueOf((long) (currentduration))));
-                          }
-                        } else {
-                          if (currentduration < 11) {
-                            currentduration--;
-                            textview.setText(
-                                "0:0".concat(String.valueOf((long) (currentduration))));
-                          } else {
-                            currentduration--;
-                            textview.setText("0:".concat(String.valueOf((long) (currentduration))));
-                          }
-                        }
+                        final long leftvideodurationInMillis =
+                            videoview.getDuration() - videoview.getCurrentPosition();
+                        final String leftvideodurationInTimeFormat =
+                            String.format(
+                                "%2d:%02d",
+                                TimeUnit.MILLISECONDS.toMinutes(leftvideodurationInMillis)
+                                    - TimeUnit.HOURS.toMinutes(
+                                        TimeUnit.MILLISECONDS.toHours(leftvideodurationInMillis)),
+                                TimeUnit.MILLISECONDS.toSeconds(leftvideodurationInMillis)
+                                    - TimeUnit.MINUTES.toSeconds(
+                                        TimeUnit.MILLISECONDS.toMinutes(leftvideodurationInMillis)));
+                        textview.setText(leftvideodurationInTimeFormat);
                       }
                     });
           }
         };
-    _timer.scheduleAtFixedRate(countdown, (int) (0), (int) (1000));
+    timer.scheduleAtFixedRate(countdown, (int) (0), (int) (700));
   }
 }
