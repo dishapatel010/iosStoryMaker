@@ -19,6 +19,7 @@ import android.widget.VideoView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import com.google.android.material.snackbar.Snackbar;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -95,6 +96,7 @@ public class AppUtil {
                             videoview.getDuration() - videoview.getCurrentPosition();
                         final String leftvideodurationInTimeFormat =
                             String.format(
+                                Locale.getDefault(),
                                 "%2d:%02d",
                                 TimeUnit.MILLISECONDS.toMinutes(leftvideodurationInMillis)
                                     - TimeUnit.HOURS.toMinutes(

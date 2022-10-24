@@ -81,12 +81,12 @@ android {
     
     lint {
         abortOnError false
-        disable 'VectorPath', 'NestedWeights', 'ContentDescription', 'SmallSp'
+        disable 'VectorPath', 'NestedWeights', 'ContentDescription', 'SmallSp', 'LockedOrientationActivity', 'RtlHardcoded', 'ScopedStorage', 'HardcodedText', 'SetTextI18n'
     }
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.8.0-alpha01'
     implementation 'com.android.volley:volley:1.2.1'
 }

@@ -7,8 +7,4 @@
 		<item name="colorControlHighlight">@color/colorControlHighlight</item>
 		<item name="colorControlNormal">@color/colorControlNormal</item>
 	</style>
-    <style name="Snackbar" parent="Widget.MaterialComponents.Snackbar">
-        <item name="android:layout_margin">0dp</item>
-        <item name="actionTextColorAlpha">1</item>
-	</style>
 </resources>

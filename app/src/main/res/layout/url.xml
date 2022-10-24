@@ -40,7 +40,7 @@
 			android:background="@drawable/urlboxui">
 			<EditText
 				android:id="@+id/edittext1"
-				android:layout_width="match_parent"
+				android:layout_width="0dp"
 				android:layout_height="25dp"
 				android:background="@android:color/transparent"
 				android:gravity="center_horizontal|center_vertical"
@@ -49,7 +49,8 @@
 				android:textColor="#FFFFFF"
 				android:hint="Paste Instagram reel/photo url"
 				android:textColorHint="#9E9E9E"
-              android:maxLines="1"
+                android:maxLines="1"
+                android:autofillHints="false"
 				android:imeOptions="actionDone"
 				android:layout_weight="1"
 				android:inputType="text"

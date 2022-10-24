@@ -4,12 +4,8 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -18,8 +14,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import android.text.TextUtils;
 import android.util.Log;
-import com.google.android.material.snackbar.Snackbar;
-import com.ios.storymaker.AppUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -91,13 +85,7 @@ public class DownloadUtil {
                 public void onErrorResponse(VolleyError error) {
                   button.setText("NEXT");
                   button.setEnabled(true);
-                  if (error instanceof NoConnectionError
-                      || error instanceof NetworkError
-                      || error instanceof AuthFailureError) {
-                    AppUtil.showSnackbar(linear, "No Internet");
-                  } else {
-                    AppUtil.showSnackbar(linear, error.toString());
-                  }
+                  AppUtil.showSnackbar(linear, error.toString());
                 }
               });
       requestQueue.add(jsonObjectRequest);
